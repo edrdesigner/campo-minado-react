@@ -4,8 +4,7 @@
 
 .board-container {
   margin: 10px auto;
-  width: 366px;
-  height: 366px;
+  max-width: 720px;
   background: #434343;
 }
 

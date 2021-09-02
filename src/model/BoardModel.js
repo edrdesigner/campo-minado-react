@@ -1,4 +1,4 @@
-import { AROUND_CELL_OPERATORS, MINE_ID } from '../constants/gameConstants';
+import { AROUND_CELL_OPERATORS, MINE_ID } from "../constants/gameConstants";
 
 export default class BoardModel {
   constructor({ rows, columns, mines }) {
@@ -10,7 +10,7 @@ export default class BoardModel {
   }
 
   generateBoard() {
-    this.generateEmptyBoard();
+    this.generateEmptyBoardFrom();
     this.generateMinesPositions();
     this.insertMines();
     this.changeBoardNumbers();
@@ -18,6 +18,9 @@ export default class BoardModel {
     return this.board;
   }
 
+  /**
+   * @deprecated
+   */
   generateEmptyBoard() {
     for (let y = 0; y < this.boardRowsLength; y++) {
       this.board.push([]);
@@ -26,6 +29,12 @@ export default class BoardModel {
         this.board[y][x] = 0;
       }
     }
+  }
+
+  generateEmptyBoardFrom() {
+    this.board = Array.from({ length: this.boardRowsLength })
+      .fill(0)
+      .map(() => Array.from({ length: this.boardColumnsLength }).fill(0));
   }
 
   getRandomNumber(min, max) {

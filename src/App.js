@@ -5,8 +5,8 @@ import { MINE_ID } from './constants/gameConstants';
 import './App.css';
 
 const GAME_PARAMS = {
-  rows: 3,
-  columns: 3,
+  rows: 5,
+  columns: 6,
   mines: 4,
 };
 
