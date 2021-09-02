@@ -1,4 +1,4 @@
-import { AROUND_CELL_OPERATORS, MINE_ID } from "../constants/gameConstants";
+import { AROUND_CELL_OPERATORS, MINE_ID } from '../constants/gameConstants';
 
 export default class BoardModel {
   constructor({ rows, columns, mines }) {
@@ -42,7 +42,7 @@ export default class BoardModel {
   }
 
   isPositionMine(minePosition) {
-    return this.minesPositions.join(" ").includes(minePosition.toString());
+    return this.minesPositions.join(' ').includes(minePosition.toString());
   }
 
   generateMinesPositions() {
@@ -79,7 +79,7 @@ export default class BoardModel {
           boardY < this.boardRowsLength &&
           boardX >= 0 &&
           boardX < this.boardColumnsLength &&
-          typeof this.board[boardY][boardX] === "number"
+          typeof this.board[boardY][boardX] === 'number'
         ) {
           this.board[boardY][boardX]++;
         }

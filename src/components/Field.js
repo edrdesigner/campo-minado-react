@@ -6,7 +6,7 @@ function Field(props) {
   const { id, value, flipped, onClick } = props;
 
   function handleClick() {
-    if (typeof onClick === "function") {
+    if (typeof onClick === 'function') {
       onClick(value, id);
     }
   }

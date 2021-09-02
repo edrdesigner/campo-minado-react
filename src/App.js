@@ -30,44 +30,45 @@ function App() {
     handleNewBoard();
   }, []);
 
-  const handleClickField = useCallback((fieldValue, cellId) => {
+  const handleClickField = useCallback(
+    (fieldValue, cellId) => {
+      setFlipped((prevItems) => {
+        return [...prevItems, cellId];
+      });
 
-    setFlipped((prevItems) => {
-      return [...prevItems, cellId];
-    });
+      if (fieldValue === MINE_ID) {
+        setTimeout(() => {
+          alert(`Mina ativada você obteve: ${points} pontos`);
+        }, DELAY_ALERT);
 
-    if (fieldValue === MINE_ID) {
-      setTimeout(() => {
-        alert(`Mina ativada você obteve: ${points} pontos`);
-      }, DELAY_ALERT)
+        setLose(true);
+        return;
+      }
 
-      setLose(true);
-      return;
-    }
+      const sumPoints = parseInt(Number(points) + Number(fieldValue));
 
-    const sumPoints = parseInt(Number(points) + Number(fieldValue));
-
-    setPoints(sumPoints);
-  }, [points]);
+      setPoints(sumPoints);
+    },
+    [points]
+  );
 
   const gameBoard = useMemo(() => {
     if (board && board.length > 0) {
-      return (
-        board.map((boardRow, y) => {
-          return (
-            <div key={`row-${y}`} className="board-row">
-              {boardRow.map((_, x) => (
-                <Field
-                  key={`row-${x}`}
-                  id={`row-${y}-${x}`}
-                  value={board[y][x]}
-                  onClick={!lose ? handleClickField : null}
-                  flipped={flipped} />
-              ))}
-            </div>
-          )
-        })
-      );
+      return board.map((boardRow, y) => {
+        return (
+          <div key={`row-${y}`} className="board-row">
+            {boardRow.map((value, x) => (
+              <Field
+                key={`row-${x}`}
+                id={`row-${y}-${x}`}
+                value={value}
+                onClick={!lose ? handleClickField : null}
+                flipped={flipped}
+              />
+            ))}
+          </div>
+        );
+      });
     }
 
     return null;
@@ -75,12 +76,12 @@ function App() {
 
   return (
     <div className="App">
-     <div className="board-container">
-       {gameBoard}
-     </div>
-     <div className="actions">
-       <button type="button" onClick={handleNewBoard}>Novo jogo</button>
-     </div>
+      <div className="board-container">{gameBoard}</div>
+      <div className="actions">
+        <button type="button" onClick={handleNewBoard}>
+          Novo jogo
+        </button>
+      </div>
     </div>
   );
 }
